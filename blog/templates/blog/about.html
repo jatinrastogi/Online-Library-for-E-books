@@ -1,0 +1,35 @@
+
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+<h1>About Us!</h1>
+<br><br>
+
+<article class="media content-section">
+    <img src="{% static 'blog/jat.jpeg' %}" class="mr-3 mt-3 rounded-circle" style="width:100px;">
+    <div class="media-body">
+        
+        <h1>Jatin Rastogi</h1>
+        <p>Jatin Rastogi is a very talented man.He has exquisite programming skills and is jack of all trades.He is quite inspirational due to his work ethic and makes everyone happy by his mere presence.</p>
+    </div>
+    </article>
+<article class="media content-section">
+    <img src="{% static 'blog/sahil.jpeg' %}" class="mr-3 mt-3 rounded-circle" style="width:100px;">
+    <div class="media-body">
+        <h1>Sahil Bajpai</h1>
+        <p>The group leader of this team.He is a great leader and has great skills to match up with it.Known for his charm he is also extremely passionate for his work and gives it all for his team.He is the blue-print for all leaders.</p>
+
+</div>
+</article>
+<article class="media content-section">
+    <img src="{% static 'blog/shivangi.jpeg' %}" class="mr-3 mt-3 rounded-circle" style="width:100px;">
+    <div class="media-body">
+        <h1>Shivangi Singh</h1>
+        <p> Shivangi Singh is the most hard-working member of this team.She has great way of presenting her skills and always has a positve attitude towards life.She is a well-rounded programmer and has great problem solving skills. </p>
+
+</div>
+</article>
+{% endblock %}
+
+
+
