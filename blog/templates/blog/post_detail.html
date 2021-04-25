@@ -17,8 +17,14 @@
             {% endif %}
           </div>
           <h2 class="article-title">{{ object.title }}</h2>
+          <h5 ><a class="card-subtitle mb-2 text-muted" href="https://www.google.com/search?q={{post.book_writer}}"  target="_blank">{{ post.book_writer }} </a></h5>
           <p class="article-content">{{ object.content }}</p>
+
         </div>
+        
       </article>
-    
+      <div>
+        <a href="{{ object.book.url }}" class="btn btn-outline-primary btn-lg btn-block mt-1 mb-1" download="{{ object.book }}">DOWNLOAD</a>
+        <a href="{{ object.book.url }}" class="btn btn-outline-warning btn-lg btn-block mt-1 mb-1" target="_blank">READ</a>
+      </div>
 {% endblock content %}

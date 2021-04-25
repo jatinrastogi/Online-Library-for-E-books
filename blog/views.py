@@ -27,7 +27,7 @@ class PostListView(ListView):
 
     ordering = ['-date_posted']
 
-    paginate_by = 2
+    paginate_by = 5
 
     
 
@@ -40,7 +40,7 @@ class UserPostListView(ListView):
 
     ordering = ['-date_posted']
 
-    paginate_by = 2
+    paginate_by = 5
 
     def get_queryset(self):    
         user = get_object_or_404(User,username=self.kwargs.get('username'))
@@ -52,7 +52,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title','content']
+    fields = ['title','book_writer','content','book']
 
     def form_valid(self,form):
         form.instance.author = self.request.user
@@ -61,7 +61,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Post
-    fields = ['title','content']
+    fields = ['title','content','book']
 
     def form_valid(self,form):
         form.instance.author = self.request.user
