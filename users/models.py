@@ -5,14 +5,17 @@ from PIL import Image
 
 
 # Create your models here.
-
-
 class Person(User):
-    prime = models.BooleanField(default=False)
-    
+    p = False
 
-    #class Meta:
-        #proxy = True
+    def changeP(self,temp):
+        if temp:
+            self.p = True
+        else:
+            self.p = False
+    class Meta:
+        proxy = True
+
 
 
 class Profile(models.Model):

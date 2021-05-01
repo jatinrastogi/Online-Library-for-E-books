@@ -3,15 +3,27 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm,UserUpdateForm,ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from .models import Person
 # Create your views here.
+
+
+
+
+
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            temp = form.cleaned_data.get('prime')
+            x = Person.objects.last()
+            x.changeP(temp)
+            form.save()
             messages.success(request,'Your account has been created!You can now login')
             return redirect('login')
+    #if request.GET:
+            
     else:
         form = UserRegisterForm()
     return render(request,'users/register.html',{'form':form})

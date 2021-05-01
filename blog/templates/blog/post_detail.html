@@ -23,8 +23,42 @@
         </div>
         
       </article>
+      <article class="media content-section">
+        <div class="media-body">
+          <h3 class="article-title">Comments....</h3>
+          
+          {% if not post.comments.all %}
+              <br>
+             <h3 class="card-subtitle mb-2 text-muted">No comments yet</h3>
+             
+            
+          {% else %}
+            {% for comment in post.comments.all %}
+            <img class= "rounded-circle article-img" src="{{ comment.name.profile.image.url }}">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'user-posts' comment.name.username %}">{{ comment.name }}</a>
+              <small class="text-muted">{{ comment.date_posted|date:"F d,Y" }}</small>
+            </div>
+            <div>
+            <p class="article-content">{{ comment.body }}</p>
+            </div>
+            {% endfor %}
+          {% endif %}
+          
+        </div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'add_comment' post.pk %}" class="link-dark">Add one</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login To Add Comment</a>
+        
+      {% endif %}
+
+      </article> 
+
+     
       <div>
         <a href="{{ object.book.url }}" class="btn btn-outline-primary btn-lg btn-block mt-1 mb-1" download="{{ object.book }}">DOWNLOAD</a>
         <a href="{{ object.book.url }}" class="btn btn-outline-warning btn-lg btn-block mt-1 mb-1" target="_blank">READ</a>
       </div>
 {% endblock content %}
+rar

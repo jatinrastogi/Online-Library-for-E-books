@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
-from .models import Post
+from .models import Post,Comment
 from django.views.generic import (
 ListView,
 DetailView,
@@ -10,6 +10,9 @@ DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.models import  User
+from .forms import CommentForm
+from django.urls import reverse_lazy
+
 # Create your views here.
 
 def home(request):
@@ -53,7 +56,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title','book_writer','content','book']
-
+    
     def form_valid(self,form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -86,5 +89,29 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 
 def about(request):
     return render(request,'blog/about.html',{'title':'about'})
+
+
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST.get('searched',"")
+        books = Post.objects.filter(title__contains=searched)
+        return render(request,'blog/search.html',{'title':'search','searched':searched,'books':books})
+    else:
+        return render(request,'blog/search.html',{'title':'search'})        
+
+class AddCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = 'add_comment.html'
+    
+    form_class = CommentForm
+
+    def form_valid(self,form):
+        form.instance.post_id = self.kwargs['pk']
+        form.instance.name = self.request.user
+        return super().form_valid(form)
+    def get_success_url(self):
+
+        return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
 
 

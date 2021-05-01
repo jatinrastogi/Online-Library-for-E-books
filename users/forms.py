@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from .models import Profile,Person
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-
+    prime = forms.BooleanField(required=False)
     class Meta:
-        model = Person
+        model = User
         fields = ['prime','username','email','password1','password2']
 
 

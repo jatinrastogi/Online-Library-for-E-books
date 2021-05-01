@@ -32,6 +32,11 @@
                   <!-- Navbar Right Side -->
                   <div class="navbar-nav">
                     {% if user.is_authenticated %}
+                      <form action="{% url 'blog-search' %}" method="POST">
+                        {% csrf_token %}
+                      <input type="search" placeholder="search books" class="form-control-sm" aria-label="Search" name="searched">
+                      <button class="btn-primary" type="submit">Search</button>
+                      </form>
                       <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
                       <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                       <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
@@ -40,6 +45,7 @@
                       <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                       <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                     {% endif %}
+                    
                   </div>
                 </div>
               </div>
