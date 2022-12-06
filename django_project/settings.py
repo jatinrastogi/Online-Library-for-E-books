@@ -21,10 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'pb+68x-w%!ktx7#f9riy_%!7hdq64!gmqkhg+0^8q5f+nztq5!'
+# SECRET_KEY = 'pb+68x-w%!ktx7#f9riy_%!7hdq64!gmqkhg+0^8q5f+nztq5!'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
+
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'pb+68x-w%!ktx7#f9riy_%!7hdq64!gmqkhg+0^8q5f+nztq5!')
+# DEBUG = True
 
 ALLOWED_HOSTS = ['primebooks.herokuapp.com']
 

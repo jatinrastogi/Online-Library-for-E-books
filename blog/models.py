@@ -11,6 +11,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     book = models.FileField(upload_to="uploads/",null=True,validators=[validate_file_extension])
+    favourite = models.ManyToManyField(User, related_name='saved', blank=True)
     def __str__(self):
         return self.title
 
