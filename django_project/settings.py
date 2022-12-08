@@ -26,8 +26,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
 
-# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'pb+68x-w%!ktx7#f9riy_%!7hdq64!gmqkhg+0^8q5f+nztq5!')
-# DEBUG = True
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'pb+68x-w%!ktx7#f9riy_%!7hdq64!gmqkhg+0^8q5f+nztq5!')
+DEBUG = True
 
 ALLOWED_HOSTS = ['primebooks.herokuapp.com']
 

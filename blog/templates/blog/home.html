@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load static %}
+
 {% block content %}
   {% for post in posts %}
     <article class="media content-section">
@@ -10,7 +11,7 @@
           <small class="text-muted">{{ post.date_posted|date:"F d,Y" }}</small>
           {%csrf_token%}
           {% if user.is_authenticated %}
-            <img src="{% static 'blog/outline-star-64.png' %}" width="16" height="16" fill="currentColor" class="float-right favBtn" id=favourite{{post.pk}} onclick="Star(this)">
+            <img src="{% static 'blog/outline-star-64.png' %}" width="16" height="16" fill="currentColor" class="float-right favBtn" id=favourite{{post.pk}} onclick="Star(this,'star/')">
           {% endif %}
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title }}</a></h2>
@@ -43,7 +44,7 @@
   <script src="{% static 'script/home.js' %}"></script>
   <script>
     setTimeout(() => {
-      checkIfStarred();
+      checkIfStarred("checkifstarred/");
     }, 45);
   </script>
 {% endblock content %}

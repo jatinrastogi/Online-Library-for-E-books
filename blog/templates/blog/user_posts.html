@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
 {% block content %}
     <h1 class="mb-3">Posts By {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
@@ -10,10 +11,14 @@
             <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted|date:"F d,Y" }}</small>
           </div>
+          {%csrf_token%}
+          {% if user.is_authenticated %}
+            <img src="{% static 'blog/outline-star-64.png' %}" width="16" height="16" fill="currentColor" class="float-right favBtn" id=favourite{{post.pk}} onclick="Star(this,'/../../star/')">
+          {% endif %}
           <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title }}</a></h2>
           <p class="article-content">{{ post.content }}</p>
         </div>
-      </article>
+    </article>
     {% endfor %}
     {%  if is_paginated %}
     
@@ -44,5 +49,10 @@
 
 
     {% endif %}
-
+    <script src="{% static 'script/home.js' %}"></script>
+    <script>
+      setTimeout(() => {
+        checkIfStarred("../../checkifstarred/");
+      }, 45);
+    </script>
 {% endblock content %}

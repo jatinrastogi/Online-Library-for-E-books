@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load static %}
+
 {% block content %}
 <h1>Favourites:</h1>
   {% for post in posts %}
@@ -11,7 +12,7 @@
           <small class="text-muted">{{ post.date_posted|date:"F d,Y" }}</small>
           {%csrf_token%}
           {% if user.is_authenticated %}
-            <img src="{% static 'blog/star-8-64.png' %}" width="16" height="16" fill="currentColor" class="float-right favBtn" id=favourite{{post.pk}} onclick="Star2(this)">
+            <img src="{% static 'blog/star-8-64.png' %}" width="16" height="16" fill="currentColor" class="float-right favBtn" id=favourite{{post.pk}} onclick="Star(this,'../star/')">
           {% endif %}
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title }}</a></h2>
