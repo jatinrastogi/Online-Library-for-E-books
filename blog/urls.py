@@ -13,4 +13,7 @@ urlpatterns = [
     path('post/<int:pk>/comment', AddCommentView.as_view(),name="add_comment"),
     path('about/', views.about,name="blog-about"),
     path('search/', views.search,name="blog-search"),
+    path('favourites/', views.favourites,name="favourite-blogs"),
+    path('star/', views.StarView, name = 'star'),
+    path('checkifstarred/', views.StarView2, name='star2'),
 ]

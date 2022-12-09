@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .models import Post,Comment
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
 ListView,
 DetailView,
@@ -115,3 +116,37 @@ class AddCommentView(LoginRequiredMixin, CreateView):
         return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
 
 
+def favourites(request):
+    posts = []
+    for post in Post.objects.all():
+        if request.user in post.favourite.all():
+            posts.append(post)
+    posts.reverse()
+    context = {
+        'posts' : posts
+    }
+    return render(request,'blog/favourites.html',context)
+
+@csrf_exempt
+def StarView(request):
+    x = []
+    if("id" in request.POST):
+        curr_post = get_object_or_404(Post, id=request.POST.get('id'))
+        if request.user not in curr_post.favourite.all():
+            curr_post.favourite.add(request.user)
+        else:
+            curr_post.favourite.remove(request.user)
+        x = list(curr_post.favourite.all())
+
+    return HttpResponse(len(x))
+
+
+@csrf_exempt
+def StarView2(request):
+    x = []
+    check = False
+    if("id" in request.POST):
+        curr_post = get_object_or_404(Post, id=request.POST.get('id'))
+        if request.user in curr_post.favourite.all():
+            check = True
+    return HttpResponse(check)
