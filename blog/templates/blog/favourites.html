@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Favourites:</h1>
+  {% for post in posts %}
+    <article class="media content-section">
+      <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+          <small class="text-muted">{{ post.date_posted|date:"F d,Y" }}</small>
+          {%csrf_token%}
+          {% if user.is_authenticated %}
+            <img src="{% static 'blog/star-8-64.png' %}" width="16" height="16" fill="currentColor" class="float-right favBtn" id=favourite{{post.pk}} onclick="Star(this,'../star/')">
+          {% endif %}
+        </div>
+        <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title }}</a></h2>
+        <h5><a class="card-subtitle mb-2 text-muted" href="https://www.google.com/search?q={{post.book_writer}}" target="_blank">{{ post.book_writer }} </a></h5>
+        <p class="article-content">{{ post.content }}</p>
+      </div>
+    </article>
+  {% endfor %}
+
+  <script src="{% static 'script/home.js' %}"></script>
+{% endblock content %}
